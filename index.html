@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,15 @@
     <title>Bhess7</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <!-- Chess.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chess.js@1.4.0/dist/chess.min.js"></script>
 </head>
 
 <body>
 
     <!-- =========================
-         HOME SCREEN
+         HOME
     ========================== -->
 
     <div id="homeScreen" class="screen active">
@@ -41,7 +45,7 @@
 
 
     <!-- =========================
-         BOT SETUP SCREEN
+         BOT SETUP
     ========================== -->
 
     <div id="botScreen" class="screen">
@@ -94,7 +98,60 @@
 
 
     <!-- =========================
-         MULTIPLAYER SCREEN
+         CHESS GAME
+    ========================== -->
+
+    <div id="gameScreen" class="screen gameScreen">
+
+        <div class="gameTopBar">
+
+            <button id="gameBackButton" class="backButton">
+                ← Leave Game
+            </button>
+
+            <div class="gameTitle">
+                <span>♟</span> Bhess7
+            </div>
+
+        </div>
+
+
+        <div class="gameInfo">
+
+            <div>
+                <strong>You</strong>
+                <span class="whiteDot"></span>
+            </div>
+
+            <div id="gameBotRating">
+                Bot • 1200
+            </div>
+
+        </div>
+
+
+        <div id="gameStatus" class="gameStatus">
+            Your turn
+        </div>
+
+
+        <!-- CHESSBOARD -->
+
+        <div id="chessBoard" class="chessBoard"></div>
+
+
+        <button
+            id="newGameButton"
+            class="secondaryButton newGameButton"
+        >
+            NEW GAME
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         MULTIPLAYER
     ========================== -->
 
     <div id="multiplayerScreen" class="screen">
@@ -143,7 +200,7 @@
 
 
     <!-- =========================
-         PARTY CREATED SCREEN
+         PARTY
     ========================== -->
 
     <div id="partyScreen" class="screen">
@@ -172,35 +229,6 @@
 
     </div>
 
-
-    <!-- =========================
-         CHESS GAME PLACEHOLDER
-    ========================== -->
-
-    <div id="gameScreen" class="screen">
-
-        <div class="logo smallLogo">
-            <span>♟</span> Bhess7
-        </div>
-
-        <h1>Chess Game</h1>
-
-        <p id="gameBotRating" class="comingSoon">
-            Bot Rating: 1200
-        </p>
-
-        <p class="comingSoon">
-            Chessboard coming next.
-        </p>
-
-        <button id="gameBackButton" class="secondaryButton">
-            BACK
-        </button>
-
-    </div>
-
-
-    <!-- JAVASCRIPT -->
 
     <script src="script.js"></script>
 
