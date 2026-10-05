@@ -3,24 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Bhess7</title>
 
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- HOME SCREEN -->
+    <!-- =========================
+         HOME SCREEN
+    ========================== -->
+
     <div id="homeScreen" class="screen active">
 
         <div class="logo">
             <span>♟</span> Bhess7
         </div>
 
-        <p class="subtitle">A different way to play chess.</p>
+        <p class="subtitle">
+            A different way to play chess.
+        </p>
 
         <div class="menu">
+
             <button id="botButton" class="mainButton">
                 PLAY VS BOT
             </button>
@@ -28,12 +34,69 @@
             <button id="multiplayerButton" class="mainButton">
                 MULTIPLAYER
             </button>
+
         </div>
 
     </div>
 
 
-    <!-- MULTIPLAYER SCREEN -->
+    <!-- =========================
+         BOT SETUP SCREEN
+    ========================== -->
+
+    <div id="botScreen" class="screen">
+
+        <button id="botBackButton" class="backButton">
+            ← Back
+        </button>
+
+        <div class="logo smallLogo">
+            <span>♟</span> Bhess7
+        </div>
+
+        <h1>Play vs Bot</h1>
+
+        <div class="botSetup">
+
+            <p class="ratingTitle">
+                Bot Rating
+            </p>
+
+            <div id="eloDisplay" class="eloDisplay">
+                1200
+            </div>
+
+            <input
+                type="range"
+                id="eloSlider"
+                min="400"
+                max="2400"
+                step="100"
+                value="1200"
+            >
+
+            <div class="eloLabels">
+                <span>400</span>
+                <span>2400</span>
+            </div>
+
+            <p id="botDescription" class="botDescription">
+                A balanced opponent.
+            </p>
+
+            <button id="startBotButton" class="mainButton">
+                START GAME
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         MULTIPLAYER SCREEN
+    ========================== -->
+
     <div id="multiplayerScreen" class="screen">
 
         <button id="backButton" class="backButton">
@@ -79,7 +142,10 @@
     </div>
 
 
-    <!-- PARTY CREATED SCREEN -->
+    <!-- =========================
+         PARTY CREATED SCREEN
+    ========================== -->
+
     <div id="partyScreen" class="screen">
 
         <div class="logo smallLogo">
@@ -93,7 +159,7 @@
         </p>
 
         <div id="partyCode" class="partyCode">
-            ------ 
+            ------
         </div>
 
         <p class="waitingText">
@@ -107,27 +173,35 @@
     </div>
 
 
-    <!-- BOT PLACEHOLDER -->
-    <div id="botScreen" class="screen">
+    <!-- =========================
+         CHESS GAME PLACEHOLDER
+    ========================== -->
 
-        <button id="botBackButton" class="backButton">
-            ← Back
-        </button>
+    <div id="gameScreen" class="screen">
 
         <div class="logo smallLogo">
             <span>♟</span> Bhess7
         </div>
 
-        <h1>Play vs Bot</h1>
+        <h1>Chess Game</h1>
+
+        <p id="gameBotRating" class="comingSoon">
+            Bot Rating: 1200
+        </p>
 
         <p class="comingSoon">
-            Bot games are coming soon.
+            Chessboard coming next.
         </p>
+
+        <button id="gameBackButton" class="secondaryButton">
+            BACK
+        </button>
 
     </div>
 
 
     <!-- JAVASCRIPT -->
+
     <script src="script.js"></script>
 
 </body>
