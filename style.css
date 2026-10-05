@@ -1,0 +1,336 @@
+/* =========================
+   GENERAL
+========================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #111111;
+    color: white;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+
+/* =========================
+   SCREENS
+========================= */
+
+.screen {
+    display: none;
+
+    width: 100%;
+    min-height: 100vh;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+
+    text-align: center;
+
+    padding: 30px;
+}
+
+.screen.active {
+    display: flex;
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.logo {
+    font-size: 64px;
+    font-weight: 800;
+    letter-spacing: -3px;
+    margin-bottom: 10px;
+}
+
+.logo span {
+    font-size: 58px;
+}
+
+.smallLogo {
+    font-size: 42px;
+    margin-bottom: 30px;
+}
+
+.smallLogo span {
+    font-size: 40px;
+}
+
+
+/* =========================
+   TEXT
+========================= */
+
+.subtitle {
+    color: #999999;
+    font-size: 18px;
+    margin-bottom: 45px;
+}
+
+h1 {
+    font-size: 38px;
+    margin-bottom: 35px;
+}
+
+.partyText {
+    color: #aaaaaa;
+    font-size: 17px;
+    margin-bottom: 15px;
+}
+
+.waitingText {
+    color: #888888;
+    margin-top: 25px;
+    font-size: 15px;
+}
+
+.comingSoon {
+    color: #999999;
+    font-size: 18px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.menu,
+.partyOptions {
+    width: 100%;
+    max-width: 360px;
+}
+
+.mainButton {
+    width: 100%;
+
+    border: none;
+    border-radius: 10px;
+
+    padding: 17px 20px;
+
+    margin: 8px 0;
+
+    background: white;
+    color: #111111;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease;
+}
+
+.mainButton:hover {
+    background: #dddddd;
+    transform: translateY(-2px);
+}
+
+.mainButton:active {
+    transform: translateY(0);
+}
+
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.backButton {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+
+    background: transparent;
+    border: none;
+
+    color: #aaaaaa;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: color 0.2s ease;
+}
+
+.backButton:hover {
+    color: white;
+}
+
+
+/* =========================
+   DIVIDER
+========================= */
+
+.divider {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    margin: 25px 0;
+
+    color: #666666;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background: #333333;
+}
+
+
+/* =========================
+   JOIN CODE INPUT
+========================= */
+
+.joinSection {
+    width: 100%;
+}
+
+#joinCodeInput {
+    width: 100%;
+
+    padding: 17px;
+
+    margin-bottom: 8px;
+
+    border-radius: 10px;
+
+    border: 1px solid #333333;
+
+    background: #1b1b1b;
+
+    color: white;
+
+    text-align: center;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+
+    outline: none;
+
+    text-transform: uppercase;
+}
+
+#joinCodeInput:focus {
+    border-color: #666666;
+}
+
+#joinCodeInput::placeholder {
+    color: #666666;
+    letter-spacing: 1px;
+}
+
+
+/* =========================
+   PARTY CODE
+========================= */
+
+.partyCode {
+    font-size: 48px;
+    font-weight: 800;
+
+    letter-spacing: 8px;
+
+    background: #1c1c1c;
+
+    border: 1px solid #333333;
+
+    border-radius: 12px;
+
+    padding: 20px 30px;
+
+    margin-top: 10px;
+}
+
+
+/* =========================
+   SECONDARY BUTTON
+========================= */
+
+.secondaryButton {
+    margin-top: 30px;
+
+    padding: 12px 25px;
+
+    border-radius: 8px;
+
+    border: 1px solid #444444;
+
+    background: transparent;
+
+    color: #aaaaaa;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+.secondaryButton:hover {
+    color: white;
+    border-color: #777777;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+#message {
+    min-height: 20px;
+
+    margin-top: 18px;
+
+    color: #ff7777;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 500px) {
+
+    .logo {
+        font-size: 48px;
+    }
+
+    .logo span {
+        font-size: 45px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .partyCode {
+        font-size: 36px;
+        letter-spacing: 5px;
+    }
+
+}
