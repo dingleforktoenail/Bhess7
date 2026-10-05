@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhess7</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HOME SCREEN -->
+    <div id="homeScreen" class="screen active">
+
+        <div class="logo">
+            <span>♟</span> Bhess7
+        </div>
+
+        <p class="subtitle">A different way to play chess.</p>
+
+        <div class="menu">
+            <button id="botButton" class="mainButton">
+                PLAY VS BOT
+            </button>
+
+            <button id="multiplayerButton" class="mainButton">
+                MULTIPLAYER
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- MULTIPLAYER SCREEN -->
+    <div id="multiplayerScreen" class="screen">
+
+        <button id="backButton" class="backButton">
+            ← Back
+        </button>
+
+        <div class="logo smallLogo">
+            <span>♟</span> Bhess7
+        </div>
+
+        <h1>Multiplayer</h1>
+
+        <div class="partyOptions">
+
+            <button id="createPartyButton" class="mainButton">
+                CREATE A PARTY
+            </button>
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+            <div class="joinSection">
+
+                <input
+                    type="text"
+                    id="joinCodeInput"
+                    placeholder="ENTER JOIN CODE"
+                    maxlength="6"
+                    autocomplete="off"
+                >
+
+                <button id="joinPartyButton" class="mainButton">
+                    JOIN PARTY
+                </button>
+
+            </div>
+
+        </div>
+
+        <p id="message"></p>
+
+    </div>
+
+
+    <!-- PARTY CREATED SCREEN -->
+    <div id="partyScreen" class="screen">
+
+        <div class="logo smallLogo">
+            <span>♟</span> Bhess7
+        </div>
+
+        <h1>Party Created</h1>
+
+        <p class="partyText">
+            Give this code to your opponent:
+        </p>
+
+        <div id="partyCode" class="partyCode">
+            ------ 
+        </div>
+
+        <p class="waitingText">
+            Waiting for opponent...
+        </p>
+
+        <button id="cancelPartyButton" class="secondaryButton">
+            CANCEL
+        </button>
+
+    </div>
+
+
+    <!-- BOT PLACEHOLDER -->
+    <div id="botScreen" class="screen">
+
+        <button id="botBackButton" class="backButton">
+            ← Back
+        </button>
+
+        <div class="logo smallLogo">
+            <span>♟</span> Bhess7
+        </div>
+
+        <h1>Play vs Bot</h1>
+
+        <p class="comingSoon">
+            Bot games are coming soon.
+        </p>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
+
+</body>
+</html>
