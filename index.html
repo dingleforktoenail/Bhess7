@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,33 +9,32 @@
     <link rel="stylesheet" href="style.css">
 
     <!-- Chess.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chess.js@1.4.0/dist/chess.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
 </head>
 
 <body>
 
     <!-- =========================
-         HOME
+         HOME SCREEN
     ========================== -->
-
     <div id="homeScreen" class="screen active">
 
         <div class="logo">
-            <span>♟</span> Bhess7
+            Bhess<span>7</span>
         </div>
 
         <p class="subtitle">
-            A different way to play chess.
+            A simple chess experience.
         </p>
 
-        <div class="menu">
+        <div class="homeButtons">
 
-            <button id="botButton" class="mainButton">
-                PLAY VS BOT
+            <button id="playBotButton" class="mainButton">
+                Play vs Bot
             </button>
 
             <button id="multiplayerButton" class="mainButton">
-                MULTIPLAYER
+                Multiplayer
             </button>
 
         </div>
@@ -45,51 +43,67 @@
 
 
     <!-- =========================
-         BOT SETUP
+         BOT SETUP SCREEN
     ========================== -->
-
     <div id="botScreen" class="screen">
 
-        <button id="botBackButton" class="backButton">
-            ← Back
-        </button>
+        <div class="setupCard">
 
-        <div class="logo smallLogo">
-            <span>♟</span> Bhess7
-        </div>
+            <h1>Play vs Bot</h1>
 
-        <h1>Play vs Bot</h1>
-
-        <div class="botSetup">
-
-            <p class="ratingTitle">
-                Bot Rating
+            <p class="setupDescription">
+                Choose your opponent's approximate strength.
             </p>
 
-            <div id="eloDisplay" class="eloDisplay">
-                1200
+            <div class="botPreview">
+
+                <div class="botIcon">
+                    ♟
+                </div>
+
+                <div>
+                    <h2 id="botName">
+                        Bhess Bot
+                    </h2>
+
+                    <p id="botDescription">
+                        Beginner
+                    </p>
+                </div>
+
             </div>
 
-            <input
-                type="range"
-                id="eloSlider"
-                min="400"
-                max="2400"
-                step="100"
-                value="1200"
-            >
+            <div class="eloContainer">
 
-            <div class="eloLabels">
-                <span>400</span>
-                <span>2400</span>
+                <div class="eloHeader">
+                    <span>Bot Elo</span>
+                    <strong id="eloValue">1200</strong>
+                </div>
+
+                <input
+                    type="range"
+                    id="eloSlider"
+                    min="400"
+                    max="2400"
+                    step="100"
+                    value="1200"
+                >
+
+                <div class="eloLabels">
+                    <span>400</span>
+                    <span>1200</span>
+                    <span>2000</span>
+                    <span>2400</span>
+                </div>
+
             </div>
-
-            <p id="botDescription" class="botDescription">
-                A balanced opponent.
-            </p>
 
             <button id="startBotButton" class="mainButton">
-                START GAME
+                Start Game
+            </button>
+
+            <button id="botBackButton" class="secondaryButton">
+                Back
             </button>
 
         </div>
@@ -98,20 +112,23 @@
 
 
     <!-- =========================
-         CHESS GAME
+         CHESS GAME SCREEN
     ========================== -->
-
     <div id="gameScreen" class="screen gameScreen">
 
         <div class="gameTopBar">
 
-            <button id="gameBackButton" class="backButton">
-                ← Leave Game
+            <button id="gameBackButton" class="smallButton">
+                ← Back
             </button>
 
             <div class="gameTitle">
-                <span>♟</span> Bhess7
+                Bhess7
             </div>
+
+            <button id="newGameButton" class="smallButton">
+                New Game
+            </button>
 
         </div>
 
@@ -120,112 +137,129 @@
 
             <div>
                 <strong>You</strong>
-                <span class="whiteDot"></span>
+                <span>White</span>
             </div>
 
-            <div id="gameBotRating">
-                Bot • 1200
+            <div class="gameStatus" id="gameStatus">
+                Your turn
+            </div>
+
+            <div>
+                <strong id="gameBotRating">Bot • 1200</strong>
+                <span>Black</span>
             </div>
 
         </div>
 
 
-        <div id="gameStatus" class="gameStatus">
-            Your turn
+        <div id="chessBoard" class="chessBoard">
+            <!-- JavaScript creates the board -->
         </div>
 
 
-        <!-- CHESSBOARD -->
+        <div class="gameControls">
 
-        <div id="chessBoard" class="chessBoard"></div>
-
-
-        <button
-            id="newGameButton"
-            class="secondaryButton newGameButton"
-        >
-            NEW GAME
-        </button>
-
-    </div>
-
-
-    <!-- =========================
-         MULTIPLAYER
-    ========================== -->
-
-    <div id="multiplayerScreen" class="screen">
-
-        <button id="backButton" class="backButton">
-            ← Back
-        </button>
-
-        <div class="logo smallLogo">
-            <span>♟</span> Bhess7
-        </div>
-
-        <h1>Multiplayer</h1>
-
-        <div class="partyOptions">
-
-            <button id="createPartyButton" class="mainButton">
-                CREATE A PARTY
+            <button id="resignButton" class="secondaryButton">
+                Resign
             </button>
 
-            <div class="divider">
-                <span>OR</span>
-            </div>
-
-            <div class="joinSection">
-
-                <input
-                    type="text"
-                    id="joinCodeInput"
-                    placeholder="ENTER JOIN CODE"
-                    maxlength="6"
-                    autocomplete="off"
-                >
-
-                <button id="joinPartyButton" class="mainButton">
-                    JOIN PARTY
-                </button>
-
-            </div>
-
         </div>
-
-        <p id="message"></p>
 
     </div>
 
 
     <!-- =========================
-         PARTY
+         MULTIPLAYER SCREEN
     ========================== -->
+    <div id="multiplayerScreen" class="screen">
 
+        <div class="setupCard">
+
+            <h1>Multiplayer</h1>
+
+            <p class="setupDescription">
+                Play with another person.
+            </p>
+
+            <button id="createPartyButton" class="mainButton">
+                Create Party
+            </button>
+
+            <button id="joinPartyButton" class="mainButton">
+                Join Party
+            </button>
+
+            <button id="multiplayerBackButton" class="secondaryButton">
+                Back
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         PARTY SCREEN
+    ========================== -->
     <div id="partyScreen" class="screen">
 
-        <div class="logo smallLogo">
-            <span>♟</span> Bhess7
+        <div class="setupCard">
+
+            <h1>Party Created</h1>
+
+            <p class="setupDescription">
+                Give this code to the other player.
+            </p>
+
+            <div class="partyCode" id="partyCode">
+                ABC123
+            </div>
+
+            <p class="waitingText">
+                Waiting for opponent...
+            </p>
+
+            <button id="cancelPartyButton" class="secondaryButton">
+                Cancel
+            </button>
+
         </div>
 
-        <h1>Party Created</h1>
+    </div>
 
-        <p class="partyText">
-            Give this code to your opponent:
-        </p>
 
-        <div id="partyCode" class="partyCode">
-            ------
+    <!-- =========================
+         JOIN PARTY SCREEN
+    ========================== -->
+    <div id="joinScreen" class="screen">
+
+        <div class="setupCard">
+
+            <h1>Join Party</h1>
+
+            <p class="setupDescription">
+                Enter the party code.
+            </p>
+
+            <input
+                type="text"
+                id="joinCodeInput"
+                class="codeInput"
+                placeholder="ABC123"
+                maxlength="6"
+            >
+
+            <button id="confirmJoinButton" class="mainButton">
+                Join
+            </button>
+
+            <button id="joinBackButton" class="secondaryButton">
+                Back
+            </button>
+
+            <p id="joinMessage" class="joinMessage"></p>
+
         </div>
-
-        <p class="waitingText">
-            Waiting for opponent...
-        </p>
-
-        <button id="cancelPartyButton" class="secondaryButton">
-            CANCEL
-        </button>
 
     </div>
 
