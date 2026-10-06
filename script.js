@@ -1,18 +1,16 @@
 /* =========================================================
    BHESS7
-   Chess + Bot
+   Main JavaScript
 ========================================================= */
 
 
 /* =========================================================
-   SCREENS
+   SCREEN ELEMENTS
 ========================================================= */
 
-const homeScreen =
-    document.getElementById("homeScreen");
-
-const botScreen =
-    document.getElementById("botScreen");
+const homeScreen = document.getElementById("homeScreen");
+const botScreen = document.getElementById("botScreen");
+const gameScreen = document.getElementById("gameScreen");
 
 const multiplayerScreen =
     document.getElementById("multiplayerScreen");
@@ -20,28 +18,56 @@ const multiplayerScreen =
 const partyScreen =
     document.getElementById("partyScreen");
 
-const gameScreen =
-    document.getElementById("gameScreen");
+const joinScreen =
+    document.getElementById("joinScreen");
 
 
 /* =========================================================
-   BUTTONS
+   HOME BUTTONS
 ========================================================= */
 
-const botButton =
-    document.getElementById("botButton");
+const playBotButton =
+    document.getElementById("playBotButton");
 
 const multiplayerButton =
     document.getElementById("multiplayerButton");
 
-const botBackButton =
-    document.getElementById("botBackButton");
 
-const backButton =
-    document.getElementById("backButton");
+/* =========================================================
+   BOT SETUP
+========================================================= */
 
 const startBotButton =
     document.getElementById("startBotButton");
+
+const botBackButton =
+    document.getElementById("botBackButton");
+
+const eloSlider =
+    document.getElementById("eloSlider");
+
+const eloValue =
+    document.getElementById("eloValue");
+
+const botName =
+    document.getElementById("botName");
+
+const botDescription =
+    document.getElementById("botDescription");
+
+
+/* =========================================================
+   GAME ELEMENTS
+========================================================= */
+
+const chessBoard =
+    document.getElementById("chessBoard");
+
+const gameStatus =
+    document.getElementById("gameStatus");
+
+const gameBotRating =
+    document.getElementById("gameBotRating");
 
 const gameBackButton =
     document.getElementById("gameBackButton");
@@ -49,53 +75,47 @@ const gameBackButton =
 const newGameButton =
     document.getElementById("newGameButton");
 
+const resignButton =
+    document.getElementById("resignButton");
+
+
+/* =========================================================
+   MULTIPLAYER ELEMENTS
+========================================================= */
+
 const createPartyButton =
     document.getElementById("createPartyButton");
 
 const joinPartyButton =
     document.getElementById("joinPartyButton");
 
-const cancelPartyButton =
-    document.getElementById("cancelPartyButton");
-
-
-/* =========================================================
-   ELEMENTS
-========================================================= */
-
-const eloSlider =
-    document.getElementById("eloSlider");
-
-const eloDisplay =
-    document.getElementById("eloDisplay");
-
-const botDescription =
-    document.getElementById("botDescription");
-
-const gameBotRating =
-    document.getElementById("gameBotRating");
-
-const gameStatus =
-    document.getElementById("gameStatus");
-
-const chessBoard =
-    document.getElementById("chessBoard");
-
-const joinCodeInput =
-    document.getElementById("joinCodeInput");
+const multiplayerBackButton =
+    document.getElementById("multiplayerBackButton");
 
 const partyCode =
     document.getElementById("partyCode");
 
-const message =
-    document.getElementById("message");
+const cancelPartyButton =
+    document.getElementById("cancelPartyButton");
+
+const joinCodeInput =
+    document.getElementById("joinCodeInput");
+
+const confirmJoinButton =
+    document.getElementById("confirmJoinButton");
+
+const joinBackButton =
+    document.getElementById("joinBackButton");
+
+const joinMessage =
+    document.getElementById("joinMessage");
 
 
 /* =========================================================
    CHESS VARIABLES
 ========================================================= */
 
-let chess;
+let chess = null;
 
 let selectedSquare = null;
 
@@ -109,7 +129,7 @@ let botThinking = false;
 
 
 /* =========================================================
-   PIECES
+   CHESS PIECES
 ========================================================= */
 
 const pieceSymbols = {
@@ -141,7 +161,8 @@ const pieceSymbols = {
 
 function showScreen(screen) {
 
-    document.querySelectorAll(".screen")
+    document
+        .querySelectorAll(".screen")
         .forEach(function (item) {
 
             item.classList.remove("active");
@@ -149,28 +170,25 @@ function showScreen(screen) {
         });
 
     screen.classList.add("active");
-
 }
 
 
 /* =========================================================
-   HOME
+   HOME → BOT
 ========================================================= */
 
-botButton.addEventListener("click", function () {
-
-    updateBotDisplay();
+playBotButton.addEventListener("click", function () {
 
     showScreen(botScreen);
 
 });
 
 
+/* =========================================================
+   HOME → MULTIPLAYER
+========================================================= */
+
 multiplayerButton.addEventListener("click", function () {
-
-    message.textContent = "";
-
-    joinCodeInput.value = "";
 
     showScreen(multiplayerScreen);
 
@@ -178,78 +196,48 @@ multiplayerButton.addEventListener("click", function () {
 
 
 /* =========================================================
-   BACK
-========================================================= */
-
-botBackButton.addEventListener("click", function () {
-
-    showScreen(homeScreen);
-
-});
-
-
-backButton.addEventListener("click", function () {
-
-    showScreen(homeScreen);
-
-});
-
-
-gameBackButton.addEventListener("click", function () {
-
-    if (chess) {
-
-        chess = null;
-
-    }
-
-    botThinking = false;
-
-    showScreen(homeScreen);
-
-});
-
-
-/* =========================================================
-   BOT ELO
+   BOT DESCRIPTION
 ========================================================= */
 
 function getBotDescription(elo) {
 
     if (elo <= 600) {
-        return "A beginner-level opponent.";
+        return "Very easy";
     }
 
     if (elo <= 900) {
-        return "A casual opponent.";
+        return "Beginner";
     }
 
     if (elo <= 1200) {
-        return "A balanced opponent.";
+        return "Casual";
     }
 
     if (elo <= 1500) {
-        return "A challenging opponent.";
+        return "Intermediate";
     }
 
     if (elo <= 1800) {
-        return "A strong opponent.";
+        return "Advanced";
     }
 
     if (elo <= 2100) {
-        return "A very strong opponent.";
+        return "Very strong";
     }
 
-    return "An extremely difficult opponent.";
+    return "Expert";
 }
 
 
+/* =========================================================
+   UPDATE ELO DISPLAY
+========================================================= */
+
 function updateBotDisplay() {
 
-    const elo =
-        Number(eloSlider.value);
+    const elo = Number(eloSlider.value);
 
-    eloDisplay.textContent = elo;
+    eloValue.textContent = elo;
 
     botDescription.textContent =
         getBotDescription(elo);
@@ -257,28 +245,23 @@ function updateBotDisplay() {
 }
 
 
-eloSlider.addEventListener("input", function () {
-
-    updateBotDisplay();
-
-});
+eloSlider.addEventListener(
+    "input",
+    updateBotDisplay
+);
 
 
 /* =========================================================
-   ELO → BOT SETTINGS
+   BOT SETTINGS
+=========================================================
+
+   IMPORTANT:
+   These are approximate difficulty settings.
+
+   They are NOT official Elo ratings.
 ========================================================= */
 
 function getBotSettings(elo) {
-
-    /*
-        These are difficulty settings rather
-        than guaranteed official Elo ratings.
-
-        Higher Elo:
-        - searches deeper
-        - considers more candidate moves
-        - makes fewer random mistakes
-    */
 
     if (elo <= 600) {
 
@@ -335,8 +318,10 @@ function getBotSettings(elo) {
     }
 
     return {
-        depth: 4,
+
+        depth: 3,
         randomness: 0.01
+
     };
 
 }
@@ -346,19 +331,32 @@ function getBotSettings(elo) {
    START BOT GAME
 ========================================================= */
 
-startBotButton.addEventListener("click", function () {
+startBotButton.addEventListener(
+    "click",
+    function () {
 
-    botElo =
-        Number(eloSlider.value);
+        botElo =
+            Number(eloSlider.value);
 
-    gameBotRating.textContent =
-        "Bot • " + botElo;
+        gameBotRating.textContent =
+            "Bot • " + botElo;
 
-    startNewBotGame();
 
-    showScreen(gameScreen);
+        /*
+         * Show the game screen FIRST.
+         *
+         * This means that even if the chess engine
+         * fails to load, you will actually see an
+         * error instead of the button appearing broken.
+         */
 
-});
+        showScreen(gameScreen);
+
+
+        startNewBotGame();
+
+    }
+);
 
 
 /* =========================================================
@@ -367,14 +365,50 @@ startBotButton.addEventListener("click", function () {
 
 function startNewBotGame() {
 
+    /*
+     * Check whether chess.js loaded.
+     */
+
+    if (typeof Chess === "undefined") {
+
+        chess = null;
+
+        chessBoard.innerHTML = "";
+
+        gameStatus.textContent =
+            "Chess engine failed to load.";
+
+        const errorMessage =
+            document.createElement("div");
+
+        errorMessage.style.padding = "30px";
+        errorMessage.style.textAlign = "center";
+        errorMessage.style.color = "#aaa";
+
+        errorMessage.textContent =
+            "Could not load chess.js. Check your internet connection and refresh the page.";
+
+        chessBoard.appendChild(errorMessage);
+
+        return;
+    }
+
+
+    /*
+     * Create a brand-new chess game.
+     */
+
     chess = new Chess();
+
 
     selectedSquare = null;
 
     botThinking = false;
 
+
     gameStatus.textContent =
         "Your turn";
+
 
     renderBoard();
 
@@ -382,33 +416,34 @@ function startNewBotGame() {
 
 
 /* =========================================================
-   NEW GAME BUTTON
-========================================================= */
-
-newGameButton.addEventListener("click", function () {
-
-    startNewBotGame();
-
-});
-
-
-/* =========================================================
-   RENDER BOARD
+   RENDER CHESS BOARD
 ========================================================= */
 
 function renderBoard() {
 
+    if (!chess) {
+        return;
+    }
+
+
     chessBoard.innerHTML = "";
 
-    const board =
-        chess.board();
+
+    const board = chess.board();
+
 
     for (let row = 0; row < 8; row++) {
 
         for (let col = 0; col < 8; col++) {
 
-            const square =
-                document.createElement("div");
+
+            /*
+             * Convert row/column into chess notation.
+             *
+             * Example:
+             * row 0 col 0 = a8
+             * row 7 col 7 = h1
+             */
 
             const file =
                 String.fromCharCode(97 + col);
@@ -419,7 +454,17 @@ function renderBoard() {
             const squareName =
                 file + rank;
 
+
+            const square =
+                document.createElement("div");
+
+
             square.classList.add("square");
+
+
+            /*
+             * Determine square color.
+             */
 
             if ((row + col) % 2 === 0) {
 
@@ -433,8 +478,8 @@ function renderBoard() {
 
 
             /*
-                Highlight selected square.
-            */
+             * Highlight selected square.
+             */
 
             if (selectedSquare === squareName) {
 
@@ -444,8 +489,8 @@ function renderBoard() {
 
 
             /*
-                Highlight legal moves.
-            */
+             * Show legal moves.
+             */
 
             if (selectedSquare) {
 
@@ -455,14 +500,16 @@ function renderBoard() {
                         verbose: true
                     });
 
-                const canMoveThere =
+
+                const isLegal =
                     legalMoves.some(function (move) {
 
                         return move.to === squareName;
 
                     });
 
-                if (canMoveThere) {
+
+                if (isLegal) {
 
                     square.classList.add("legal");
 
@@ -470,6 +517,10 @@ function renderBoard() {
 
             }
 
+
+            /*
+             * Get piece on square.
+             */
 
             const piece =
                 board[row][col];
@@ -480,31 +531,41 @@ function renderBoard() {
                 const pieceElement =
                     document.createElement("div");
 
-                pieceElement.classList.add("piece");
 
-                if (piece.color === "w") {
+                pieceElement.classList.add(
+                    "piece",
+                    piece.color === "w"
+                        ? "white"
+                        : "black"
+                );
 
-                    pieceElement.classList.add("white");
-
-                } else {
-
-                    pieceElement.classList.add("black");
-
-                }
 
                 pieceElement.textContent =
-                    pieceSymbols[piece.color][piece.type];
+                    pieceSymbols[
+                        piece.color
+                    ][
+                        piece.type
+                    ];
 
-                square.appendChild(pieceElement);
+
+                square.appendChild(
+                    pieceElement
+                );
 
             }
 
+
+            /*
+             * Clicking a square.
+             */
 
             square.addEventListener(
                 "click",
                 function () {
 
-                    handleSquareClick(squareName);
+                    handleSquareClick(
+                        squareName
+                    );
 
                 }
             );
@@ -520,10 +581,19 @@ function renderBoard() {
 
 
 /* =========================================================
-   PLAYER CLICK
+   HANDLE SQUARE CLICK
 ========================================================= */
 
 function handleSquareClick(square) {
+
+    /*
+     * Don't allow moves if:
+     *
+     * - no chess game exists
+     * - bot is thinking
+     * - game is over
+     * - it isn't the player's turn
+     */
 
     if (!chess) {
         return;
@@ -533,32 +603,30 @@ function handleSquareClick(square) {
         return;
     }
 
-    if (chess.isGameOver()) {
+    if (chess.game_over()) {
         return;
     }
-
-    /*
-        Player is always White.
-    */
 
     if (chess.turn() !== playerColor) {
         return;
     }
 
 
-    const piece =
+    const clickedPiece =
         chess.get(square);
 
 
     /*
-        Nothing selected yet.
-    */
+     * If nothing is selected yet,
+     * only allow the player to select
+     * one of their own pieces.
+     */
 
     if (!selectedSquare) {
 
         if (
-            piece &&
-            piece.color === playerColor
+            clickedPiece &&
+            clickedPiece.color === playerColor
         ) {
 
             selectedSquare = square;
@@ -572,13 +640,13 @@ function handleSquareClick(square) {
 
 
     /*
-        Clicking another own piece
-        changes selection.
-    */
+     * Clicking another friendly piece
+     * switches the selection.
+     */
 
     if (
-        piece &&
-        piece.color === playerColor
+        clickedPiece &&
+        clickedPiece.color === playerColor
     ) {
 
         selectedSquare = square;
@@ -590,8 +658,8 @@ function handleSquareClick(square) {
 
 
     /*
-        Attempt move.
-    */
+     * Try to make the move.
+     */
 
     try {
 
@@ -599,8 +667,14 @@ function handleSquareClick(square) {
             chess.move({
                 from: selectedSquare,
                 to: square,
+
+                /*
+                 * Automatically promote to queen.
+                 */
+
                 promotion: "q"
             });
+
 
         if (move) {
 
@@ -610,19 +684,31 @@ function handleSquareClick(square) {
 
             checkGameState();
 
-            if (!chess.isGameOver()) {
+
+            /*
+             * If the game isn't over,
+             * let the bot move.
+             */
+
+            if (!chess.game_over()) {
 
                 botMove();
 
             }
+
+        } else {
+
+            selectedSquare = null;
+
+            renderBoard();
 
         }
 
     } catch (error) {
 
         /*
-            Illegal move.
-        */
+         * Illegal move.
+         */
 
         selectedSquare = null;
 
@@ -644,50 +730,66 @@ function checkGameState() {
     }
 
 
-    if (chess.isCheckmate()) {
+    /*
+     * Checkmate
+     */
 
-        if (chess.turn() === botColor) {
-
-            gameStatus.textContent =
-                "Checkmate — You win!";
-
-        } else {
-
-            gameStatus.textContent =
-                "Checkmate — Bot wins.";
-
-        }
-
-        return;
-    }
-
-
-    if (chess.isDraw()) {
-
-        gameStatus.textContent =
-            "Draw.";
-
-        return;
-    }
-
-
-    if (chess.isCheck()) {
+    if (chess.in_checkmate()) {
 
         if (chess.turn() === playerColor) {
 
             gameStatus.textContent =
-                "Check! Your turn.";
+                "Checkmate — Bot wins";
 
         } else {
 
             gameStatus.textContent =
-                "Check! Bot is thinking.";
+                "Checkmate — You win!";
 
         }
 
         return;
     }
 
+
+    /*
+     * Draw
+     */
+
+    if (chess.in_draw()) {
+
+        gameStatus.textContent =
+            "Draw";
+
+        return;
+    }
+
+
+    /*
+     * Check
+     */
+
+    if (chess.in_check()) {
+
+        if (chess.turn() === playerColor) {
+
+            gameStatus.textContent =
+                "Check! Your turn";
+
+        } else {
+
+            gameStatus.textContent =
+                "Check! Bot is thinking";
+
+        }
+
+        return;
+    }
+
+
+    /*
+     * Normal turn
+     */
 
     if (chess.turn() === playerColor) {
 
@@ -714,9 +816,10 @@ function botMove() {
         return;
     }
 
-    if (chess.isGameOver()) {
+    if (chess.game_over()) {
         return;
     }
+
 
     botThinking = true;
 
@@ -725,13 +828,14 @@ function botMove() {
 
 
     /*
-        Small delay makes the bot feel
-        like it is actually thinking.
-    */
+     * Small delay so the bot doesn't instantly
+     * move after the player's move.
+     */
 
     setTimeout(function () {
 
-        if (!chess || chess.isGameOver()) {
+
+        if (!chess || chess.game_over()) {
 
             botThinking = false;
 
@@ -755,7 +859,11 @@ function botMove() {
 
             try {
 
-                chess.move(bestMove);
+                chess.move({
+                    from: bestMove.from,
+                    to: bestMove.to,
+                    promotion: "q"
+                });
 
             } catch (error) {
 
@@ -771,9 +879,11 @@ function botMove() {
 
         botThinking = false;
 
+
         renderBoard();
 
         checkGameState();
+
 
     }, 250);
 
@@ -781,10 +891,13 @@ function botMove() {
 
 
 /* =========================================================
-   BOT MOVE SELECTION
+   CHOOSE BOT MOVE
 ========================================================= */
 
-function chooseBotMove(position, settings) {
+function chooseBotMove(
+    position,
+    settings
+) {
 
     const moves =
         position.moves({
@@ -799,20 +912,24 @@ function chooseBotMove(position, settings) {
     }
 
 
-    /*
-        Evaluate every legal move.
-    */
-
     const scoredMoves =
         moves.map(function (move) {
 
+
             const testGame =
-                new Chess(position.fen());
+                new Chess(
+                    position.fen()
+                );
+
 
             testGame.move({
+
                 from: move.from,
+
                 to: move.to,
+
                 promotion: "q"
+
             });
 
 
@@ -827,26 +944,33 @@ function chooseBotMove(position, settings) {
 
 
             return {
+
                 move: move,
+
                 score: score
+
             };
 
         });
 
 
-    scoredMoves.sort(function (a, b) {
+    /*
+     * Sort best to worst.
+     */
 
-        return b.score - a.score;
+    scoredMoves.sort(
+        function (a, b) {
 
-    });
+            return b.score - a.score;
+
+        }
+    );
 
 
     /*
-        At lower ratings, occasionally choose
-        from a larger pool of moves.
-
-        At higher ratings, choose the best move.
-    */
+     * Decide how many good moves
+     * the bot is willing to consider.
+     */
 
     let poolSize = 1;
 
@@ -854,24 +978,38 @@ function chooseBotMove(position, settings) {
     if (settings.randomness > 0.5) {
 
         poolSize =
-            Math.min(6, scoredMoves.length);
+            Math.min(
+                6,
+                scoredMoves.length
+            );
 
-    } else if (settings.randomness > 0.2) {
+    } else if (
+        settings.randomness > 0.2
+    ) {
 
         poolSize =
-            Math.min(3, scoredMoves.length);
+            Math.min(
+                3,
+                scoredMoves.length
+            );
 
-    } else if (settings.randomness > 0.05) {
+    } else if (
+        settings.randomness > 0.05
+    ) {
 
         poolSize =
-            Math.min(2, scoredMoves.length);
+            Math.min(
+                2,
+                scoredMoves.length
+            );
 
     }
 
 
     /*
-        Sometimes make a weaker choice.
-    */
+     * Occasionally choose a weaker move
+     * at lower Elo levels.
+     */
 
     if (
         Math.random() <
@@ -880,13 +1018,21 @@ function chooseBotMove(position, settings) {
 
         const randomIndex =
             Math.floor(
-                Math.random() * poolSize
+                Math.random() *
+                poolSize
             );
 
-        return scoredMoves[randomIndex].move;
+
+        return scoredMoves[
+            randomIndex
+        ].move;
 
     }
 
+
+    /*
+     * Otherwise choose the best move.
+     */
 
     return scoredMoves[0].move;
 
@@ -905,39 +1051,53 @@ function minimax(
     beta
 ) {
 
-    /*
-        Terminal positions.
-    */
 
-    if (position.isCheckmate()) {
+    /*
+     * Checkmate
+     */
+
+    if (position.in_checkmate()) {
 
         /*
-            If it is White's turn in a checkmate
-            position, Black has won.
-
-            If it is Black's turn in a checkmate
-            position, White has won.
-        */
+         * If it is White's turn and White
+         * is checkmated, Black has won.
+         */
 
         if (position.turn() === "w") {
 
-            return -100000;
+            return 100000;
 
         } else {
 
-            return 100000;
+            return -100000;
 
         }
 
     }
 
 
+    /*
+     * Draw
+     */
+
     if (
-        position.isDraw() ||
-        depth <= 0
+        position.in_draw()
     ) {
 
-        return evaluatePosition(position);
+        return 0;
+
+    }
+
+
+    /*
+     * Stop searching.
+     */
+
+    if (depth <= 0) {
+
+        return evaluatePosition(
+            position
+        );
 
     }
 
@@ -950,25 +1110,46 @@ function minimax(
 
     if (maximizing) {
 
+
+        /*
+         * Black is maximizing.
+         */
+
         let bestScore =
             -Infinity;
 
 
-        for (const move of moves) {
+        for (
+            let i = 0;
+            i < moves.length;
+            i++
+        ) {
 
-            const next =
-                new Chess(position.fen());
 
-            next.move({
+            const move =
+                moves[i];
+
+
+            const nextPosition =
+                new Chess(
+                    position.fen()
+                );
+
+
+            nextPosition.move({
+
                 from: move.from,
+
                 to: move.to,
+
                 promotion: "q"
+
             });
 
 
             const score =
                 minimax(
-                    next,
+                    nextPosition,
                     depth - 1,
                     false,
                     alpha,
@@ -1001,27 +1182,49 @@ function minimax(
 
         return bestScore;
 
+
     } else {
+
+
+        /*
+         * White is minimizing.
+         */
 
         let bestScore =
             Infinity;
 
 
-        for (const move of moves) {
+        for (
+            let i = 0;
+            i < moves.length;
+            i++
+        ) {
 
-            const next =
-                new Chess(position.fen());
 
-            next.move({
+            const move =
+                moves[i];
+
+
+            const nextPosition =
+                new Chess(
+                    position.fen()
+                );
+
+
+            nextPosition.move({
+
                 from: move.from,
+
                 to: move.to,
+
                 promotion: "q"
+
             });
 
 
             const score =
                 minimax(
-                    next,
+                    nextPosition,
                     depth - 1,
                     true,
                     alpha,
@@ -1060,18 +1263,24 @@ function minimax(
 
 
 /* =========================================================
-   POSITION EVALUATION
+   EVALUATE POSITION
 ========================================================= */
 
 function evaluatePosition(position) {
 
+
     const values = {
 
         p: 100,
+
         n: 320,
+
         b: 330,
+
         r: 500,
+
         q: 900,
+
         k: 20000
 
     };
@@ -1084,9 +1293,19 @@ function evaluatePosition(position) {
         position.board();
 
 
-    for (let row = 0; row < 8; row++) {
+    for (
+        let row = 0;
+        row < 8;
+        row++
+    ) {
 
-        for (let col = 0; col < 8; col++) {
+
+        for (
+            let col = 0;
+            col < 8;
+            col++
+        ) {
+
 
             const piece =
                 board[row][col];
@@ -1117,22 +1336,22 @@ function evaluatePosition(position) {
 
 
     /*
-        Small positional bonuses.
-    */
+     * Add a small mobility bonus.
+     */
 
-    const blackMoves =
-        position.moves({
-            verbose: true
-        }).length;
+    const mobility =
+        position.moves().length;
 
 
     if (position.turn() === "b") {
 
-        score += blackMoves * 2;
+        score +=
+            mobility * 2;
 
     } else {
 
-        score -= blackMoves * 2;
+        score -=
+            mobility * 2;
 
     }
 
@@ -1143,32 +1362,134 @@ function evaluatePosition(position) {
 
 
 /* =========================================================
-   PARTY SYSTEM
+   NEW GAME BUTTON
+========================================================= */
+
+newGameButton.addEventListener(
+    "click",
+    function () {
+
+        startNewBotGame();
+
+    }
+);
+
+
+/* =========================================================
+   GAME BACK BUTTON
+========================================================= */
+
+gameBackButton.addEventListener(
+    "click",
+    function () {
+
+        chess = null;
+
+        selectedSquare = null;
+
+        botThinking = false;
+
+        showScreen(homeScreen);
+
+    }
+);
+
+
+/* =========================================================
+   RESIGN
+========================================================= */
+
+resignButton.addEventListener(
+    "click",
+    function () {
+
+        if (!chess) {
+            return;
+        }
+
+        if (chess.game_over()) {
+            return;
+        }
+
+
+        gameStatus.textContent =
+            "You resigned — Bot wins";
+
+
+        botThinking = true;
+
+    }
+);
+
+
+/* =========================================================
+   BOT BACK BUTTON
+========================================================= */
+
+botBackButton.addEventListener(
+    "click",
+    function () {
+
+        showScreen(homeScreen);
+
+    }
+);
+
+
+/* =========================================================
+   MULTIPLAYER BACK
+========================================================= */
+
+multiplayerBackButton.addEventListener(
+    "click",
+    function () {
+
+        showScreen(homeScreen);
+
+    }
+);
+
+
+/* =========================================================
+   GENERATE PARTY CODE
 ========================================================= */
 
 function generatePartyCode() {
 
     const characters =
-        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
 
     let code = "";
 
-    for (let i = 0; i < 6; i++) {
 
-        const randomIndex =
+    for (
+        let i = 0;
+        i < 6;
+        i++
+    ) {
+
+        const index =
             Math.floor(
                 Math.random() *
                 characters.length
             );
 
-        code += characters[randomIndex];
+
+        code +=
+            characters[index];
 
     }
+
 
     return code;
 
 }
 
+
+/* =========================================================
+   CREATE PARTY
+========================================================= */
 
 createPartyButton.addEventListener(
     "click",
@@ -1177,46 +1498,107 @@ createPartyButton.addEventListener(
         const code =
             generatePartyCode();
 
+
         partyCode.textContent =
             code;
 
-        showScreen(partyScreen);
+
+        showScreen(
+            partyScreen
+        );
 
     }
 );
 
+
+/* =========================================================
+   CANCEL PARTY
+========================================================= */
+
+cancelPartyButton.addEventListener(
+    "click",
+    function () {
+
+        showScreen(
+            multiplayerScreen
+        );
+
+    }
+);
+
+
+/* =========================================================
+   JOIN PARTY SCREEN
+========================================================= */
 
 joinPartyButton.addEventListener(
     "click",
     function () {
 
-        const code =
-            joinCodeInput.value
-                .trim()
-                .toUpperCase();
+        joinCodeInput.value = "";
 
+        joinMessage.textContent = "";
 
-        if (code.length !== 6) {
+        showScreen(joinScreen);
 
-            message.textContent =
-                "Please enter a 6-character join code.";
+        setTimeout(
+            function () {
 
-            return;
+                joinCodeInput.focus();
 
-        }
-
-
-        /*
-            Base44 will replace this
-            temporary section later.
-        */
-
-        message.textContent =
-            "Party lookup will be connected to Base44 soon.";
+            },
+            100
+        );
 
     }
 );
 
+
+/* =========================================================
+   JOIN PARTY
+========================================================= */
+
+function attemptJoin() {
+
+    const code =
+        joinCodeInput.value
+            .trim()
+            .toUpperCase();
+
+
+    if (code.length !== 6) {
+
+        joinMessage.textContent =
+            "Enter a 6-character party code.";
+
+        return;
+
+    }
+
+
+    /*
+     * Base44 multiplayer will be connected here later.
+     */
+
+    joinMessage.textContent =
+        "Party system will connect through Base44.";
+
+}
+
+
+/* =========================================================
+   JOIN BUTTON
+========================================================= */
+
+confirmJoinButton.addEventListener(
+    "click",
+    attemptJoin
+);
+
+
+/* =========================================================
+   ENTER TO JOIN
+========================================================= */
 
 joinCodeInput.addEventListener(
     "keydown",
@@ -1224,7 +1606,7 @@ joinCodeInput.addEventListener(
 
         if (event.key === "Enter") {
 
-            joinPartyButton.click();
+            attemptJoin();
 
         }
 
@@ -1232,24 +1614,17 @@ joinCodeInput.addEventListener(
 );
 
 
-joinCodeInput.addEventListener(
-    "input",
-    function () {
+/* =========================================================
+   JOIN BACK
+========================================================= */
 
-        joinCodeInput.value =
-            joinCodeInput.value
-                .toUpperCase()
-                .replace(/[^A-Z0-9]/g, "");
-
-    }
-);
-
-
-cancelPartyButton.addEventListener(
+joinBackButton.addEventListener(
     "click",
     function () {
 
-        showScreen(multiplayerScreen);
+        showScreen(
+            multiplayerScreen
+        );
 
     }
 );
